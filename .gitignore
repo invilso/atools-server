@@ -1,1 +1,8 @@
+# Папки
+__pycache__/
+venv/
 /env
+logs/
+
+#Файлы
+DataBase.db
