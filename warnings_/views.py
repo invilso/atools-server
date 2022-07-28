@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from .services.create import create_warning
 from .services.longpoll import longpoll
 from .services.get import get_warnings_from_server
+from .services.update import send_to_all
 from django.core import serializers
 import json
 
@@ -18,6 +19,15 @@ class CreateView(ListView):
             return JsonResponse({'status': 'success'})
         else:
             return JsonResponse({'status': 'error', 'info': 'Warning already is exist in DB.'})
+
+@method_decorator(csrf_exempt, name='dispatch')
+class SendAll(ListView):
+    def post(self, request):
+        data = json.loads(request.body)
+        if send_to_all(data):
+            return JsonResponse({'status': 'success'})
+        else:
+            return JsonResponse({'status': 'error', 'info': 'Warning already is sended.'}, status=500)
 
 @method_decorator(csrf_exempt, name='dispatch')
 class LPView(ListView):

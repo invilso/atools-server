@@ -13,7 +13,7 @@ def update(data: RequestData, field: str):
     server = get_admin_server_from_nickname(data['nickname'])
     if server:
         if field == 'spectate':
-            update_spectate(data['nickname'], data['spectate'])
+            update_spectate(data['nickname'], data.get('spectate', None))
         elif field == 'online':
             update_online(data['nickname'])
     else:

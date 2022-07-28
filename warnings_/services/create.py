@@ -19,5 +19,3 @@ def create_warning(data: RequestData):
         w.save()
         return True
     return False
-    
-    

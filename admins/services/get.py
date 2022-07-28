@@ -15,4 +15,4 @@ def get_admins_from_server(data: RequestData):
             qs = get_timedelta_admins(data['timedelta']).filter(server=server)
         else:
             qs = get_all_admins().filter(server=server)
-        return qs.values('last_online', 'nickname', 'spectate', 'time_created')
+        return qs.only('last_online', 'nickname', 'spectate', 'time_created')
