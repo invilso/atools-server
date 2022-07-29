@@ -7,3 +7,5 @@ db.sqlite3
 logs/
 #Файлы
 DataBase.db
+.env
+test.lua
