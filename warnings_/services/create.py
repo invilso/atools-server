@@ -13,6 +13,7 @@ class RequestData:
     server: str
 
 def create_warning(data: RequestData):
+    return True
     nickname = json.loads(data['json'])['origin_name']
     if not is_warning_exist_in_db(nickname):
         w = Warning(json=data['json'], nickname=nickname, sender=data['sender'], server=data['server'])
