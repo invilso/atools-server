@@ -59,6 +59,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'atools_server.middleware.xforwarder.XForwardedForMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'atools_server.middleware.blocklist.BlockedIpMiddleware',
 ]
