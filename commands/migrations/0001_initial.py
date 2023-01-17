@@ -8,18 +8,18 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
+        ('admins', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Admin',
+            name='EditedCommandsDB',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nickname', models.CharField(max_length=150, unique=True)),
-                ('last_online', models.DateTimeField(blank=True, null=True)),
-                ('spectate', models.IntegerField(blank=True, null=True)),
-                ('server', models.CharField(max_length=32)),
+                ('json', models.JSONField()),
+                ('comment', models.CharField(max_length=150)),
                 ('time_created', models.DateTimeField(auto_now_add=True)),
+                ('sender', models.ManyToManyField(blank=True, related_name='sender', to='admins.admin')),
             ],
         ),
     ]
