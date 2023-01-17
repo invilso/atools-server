@@ -60,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'ratelimit.middleware.RatelimitMiddleware'
     'atools_server.middleware.blocklist.BlockedIpMiddleware',
 ]
 
