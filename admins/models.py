@@ -13,5 +13,5 @@ class Admin(models.Model):
             id=self.pk, nickname=self.nickname,
             server=self.server, 
             time_created=self.time_created.isoformat(),
-            last_online=self.last_online.isoformat(),
+            last_online=self.last_online.timestamp(),
             spectate=self.spectate)
