@@ -8,17 +8,23 @@ from .services.longpoll import longpoll
 from .services.get import get_warnings_from_server
 from .services.update import send_to_all
 from django.core import serializers
+from ratelimit.decorators import ratelimit
 import json
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class CreateView(ListView):
+    @method_decorator(ratelimit(key='ip', rate='2/m', method='POST', block=True))
     def post(self, request):
-        data = json.loads(request.body)
-        if create_warning(data):
-            return JsonResponse({'status': 'success'})
+        if "LuaSocket" or "InvilsoTestUAGloryToUkraine" in request.META['HTTP_USER_AGENT']:
+            data = json.loads(request.body)
+            if create_warning(data):
+                return JsonResponse({'status': 'success'})
+            else:
+                return JsonResponse({'status': 'error', 'info': 'Warning already is exist in DB.'}, status=501)
         else:
-            return JsonResponse({'status': 'error', 'info': 'Warning already is exist in DB.'})
+            return JsonResponse({'status': 'error', 'info': 'Warning already is exist in DB.'}, status=501)
+            
 
 @method_decorator(csrf_exempt, name='dispatch')
 class SendAll(ListView):
