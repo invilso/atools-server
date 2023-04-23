@@ -16,11 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework.authtoken.views import obtain_auth_token
+from django.conf import settings
+from django.conf.urls.static import static
+from account.views import RandomRecordView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('admins/', include('admins.urls', namespace='admins')),
     path('warnings/', include('warnings_.urls', namespace='warnings_')),
     path('account/', include('account.urls', namespace='account')),
+    path('get-ad/', RandomRecordView.as_view(), name='ad'),
     path('api-token-auth/', obtain_auth_token)
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

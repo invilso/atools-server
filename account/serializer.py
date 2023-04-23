@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 User = get_user_model()
+from .models import Ad
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -12,6 +13,23 @@ class UserActivateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('is_active',)
+        
+class AdSerializer(serializers.ModelSerializer):
+    text = serializers.CharField()
+    link = serializers.CharField(allow_null=True, default='')
+    link_text = serializers.CharField(allow_null=True, default='')
+    date_added = serializers.DateTimeField(format="%d.%m.%Y %H:%M:%S", required=False, read_only=True)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        for field in ['link', 'link_text']:
+            if data[field] is None:
+                data[field] = ''
+        return data
+        
+    class Meta:
+        model = Ad
+        fields = ['text', 'link', 'link_text', 'date_added']
         
         
 

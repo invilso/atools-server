@@ -8,7 +8,7 @@ from .services.longpoll import longpoll
 from .services.get import get_warnings_from_server
 from .services.update import send_to_all
 from django.core import serializers
-from ratelimit.decorators import ratelimit
+from django_ratelimit.decorators import ratelimit
 import json
 
 

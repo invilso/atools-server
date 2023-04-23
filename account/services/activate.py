@@ -31,7 +31,7 @@ def longpoll_get_new_admin(user: User) -> list[str]:
                     try:
                         user2 = User.objects.get(username=ua_user['username'], is_active=False)
                         print(user2.username)
-                        unactivated_users_filtered.append(ua_user['username'])
+                        unactivated_users_filtered.append({'username': user2.username, 'nickname': user2.nickname})
                         ua_user['sended'].append(user.username)
                     except ObjectDoesNotExist:
                         remove_user_from_file(ua_user['username'])

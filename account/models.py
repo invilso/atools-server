@@ -26,3 +26,9 @@ class Blocklist(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
     def __str__(self) -> str:
         return f'{self.reason} || {self.ip}'
+    
+class Ad(models.Model):
+    text = models.TextField()
+    link = models.URLField(blank=True, null=True)
+    link_text = models.CharField(max_length=100, blank=True, null=True)
+    date_added = models.DateTimeField(auto_now_add=True)

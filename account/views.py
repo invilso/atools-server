@@ -13,13 +13,14 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
-from .serializer import UserRegistrSerializer
+from .serializer import UserRegistrSerializer, AdSerializer
 from rest_framework.views import APIView
 from .services.update import update_spectate, update_online
 from django.utils import timezone
 from datetime import timedelta
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 from .services.activate import activate_user, longpoll_get_new_admin, block_user, add_user_to_file
+from .models import Ad
 
 class ReadOnly(BasePermission):
     def has_permission(self, request, view):
@@ -122,4 +123,17 @@ class LPView(APIView):
         if users:
             return Response(users, status=200)
         else:
-            return Response({'status': 'error', 'info': 'New unactivateds don`t exist.'})
+            return Response({'status': 'error', 'info': 'New unactivateds don`t exist.'}, status=status.HTTP_404_NOT_FOUND)
+
+class RandomRecordView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    
+    def get(self, request):
+        # Получаем случайную запись из таблицы
+        ad = Ad.objects.order_by('?').first()
+
+        if ad:
+            serializer = AdSerializer(ad)
+            return Response(serializer.data)
+        else:
+            return Response({'status': 'error', 'info': 'No records'}, status=status.HTTP_404_NOT_FOUND)
