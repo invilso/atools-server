@@ -10,16 +10,6 @@ class User(AbstractUser):
     spectate = models.IntegerField(blank=True, null=True)
     social_network = models.CharField(max_length=64, blank=True, null=True)
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     nickname = models.CharField(max_length=64)
-#     server = models.CharField(max_length=32)
-#     last_online = models.DateTimeField(blank=True, null=True)
-#     spectate = models.IntegerField(blank=True, null=True)
-#     def __str__(self) -> str:
-#         return self.nickname
-
-
 class Blocklist(models.Model):
     reason = models.CharField(max_length=64)
     ip = models.GenericIPAddressField()
